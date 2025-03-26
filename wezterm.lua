@@ -30,13 +30,13 @@ config.cursor_blink_rate = 250
 
 -- Tab Bar Configuration
 config.enable_tab_bar = true
-config.hide_tab_bar_if_only_one_tab = true
+-- config.hide_tab_bar_if_only_one_tab = true
 config.show_tab_index_in_tab_bar = true
 config.use_fancy_tab_bar = false
 config.colors.tab_bar = {
 	background = transparent_bg,
-	new_tab = { fg_color = config.colors.background, bg_color = config.colors.brights[6] },
-	new_tab_hover = { fg_color = config.colors.background, bg_color = config.colors.foreground },
+	new_tab = { fg_color = config.colors.foreground, bg_color = config.colors.brights[1] },
+	new_tab_hover = { fg_color = config.colors.brights[1], bg_color = config.colors.brights[8] },
 }
 
 -- Tab Formatting
