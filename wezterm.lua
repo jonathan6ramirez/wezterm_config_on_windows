@@ -3,7 +3,7 @@ local wezterm = require("wezterm")
 
 -- This will hold the configuration.
 local config = wezterm.config_builder()
-local opacity = 0.65
+local opacity = 0.8
 local transparent_bg = "rgba(22, 24, 26, " .. opacity .. ")"
 
 -- Set the shell to powershell
@@ -11,7 +11,9 @@ config.default_prog = { "pwsh", "-NoLogo" }
 
 -- Color Configuration
 config.colors = require("cyberdream")
-config.color_scheme = "Solarized (dark) (terminal.sexy)"
+-- INFO: colorscheme for solorized osaka
+-- config.color_scheme = "Solarized (dark) (terminal.sexy)"
+config.color_scheme = "Kanagawa Dragon (Gogh)"
 config.force_reverse_video_cursor = true
 
 -- Window Configuration
@@ -19,7 +21,7 @@ config.initial_rows = 45
 config.initial_cols = 180
 config.window_decorations = "RESIZE"
 config.window_background_opacity = opacity
-config.window_background_image = (os.getenv("WEZTERM_CONFIG_FILE") or ""):gsub("wezterm.lua", "bg-blurred.png")
+-- config.window_background_image = (os.getenv("WEZTERM_CONFIG_FILE") or ""):gsub("wezterm.lua", "bg-blurred.png")
 config.window_close_confirmation = "NeverPrompt"
 config.win32_system_backdrop = "Acrylic"
 
@@ -30,7 +32,7 @@ config.cursor_blink_rate = 250
 
 -- Tab Bar Configuration
 config.enable_tab_bar = true
--- config.hide_tab_bar_if_only_one_tab = true
+config.hide_tab_bar_if_only_one_tab = true
 config.show_tab_index_in_tab_bar = true
 config.use_fancy_tab_bar = false
 config.colors.tab_bar = {
@@ -38,6 +40,64 @@ config.colors.tab_bar = {
 	new_tab = { fg_color = config.colors.foreground, bg_color = config.colors.brights[1] },
 	new_tab_hover = { fg_color = config.colors.brights[1], bg_color = config.colors.brights[8] },
 }
+
+wezterm.on("user-var-changed", function(window, pane, name, value)
+	window:toast_notification("wezterm", "SetUserVar called: " .. name .. "=" .. value, nil, 4000)
+end)
+
+-- -- Zen mode neovim configuration
+wezterm.on("user-var-changed", function(window, pane, name, value)
+	local overrides = window:get_config_overrides() or {}
+	if name == "ZEN_MODE" then
+		window:toast_notification("wezterm", "zen mode called" .. value)
+		local incremental = value:find("+")
+		local number_value = tonumber(value)
+		if incremental ~= nil then
+			while number_value > 0 do
+				window:perform_action(wezterm.action.IncreaseFontSize, pane)
+				number_value = number_value - 1
+			end
+			overrides.enable_tab_bar = false
+		elseif number_value < 0 then
+			window:perform_action(wezterm.action.ResetFontSize, pane)
+			overrides.font_size = nil
+			overrides.enable_tab_bar = true
+		else
+			overrides.font_size = number_value
+			overrides.enable_tab_bar = false
+		end
+	end
+	window:set_config_overrides(overrides)
+end)
+
+wezterm.on("user-var-changed", function(window, pane, name, value)
+	window:toast_notification("wezterm", "variable change")
+end)
+
+-- wezterm.on("user-var-changed", function(window, pane, name, value)
+-- 	local overrides = window:get_config_overrides() or {}
+-- 	-- window:toast_notification("wezterm", "user var changed!" .. name, nil, 4000)
+-- 	window:toast_notification("wezterm", "variable changed!" .. name, nil, 4000)
+-- 	if name == "ZEN_MODE" then
+-- 		local incremental = value:find("+")
+-- 		local number_value = tonumber(value)
+-- 		if incremental ~= nil then
+-- 			while number_value > 0 do
+-- 				window:perform_action(wezterm.action.IncreaseFontSize, pane)
+-- 				number_value = number_value - 1
+-- 			end
+-- 			overrides.enable_tab_bar = false
+-- 		elseif number_value < 0 then
+-- 			window:perform_action(wezterm.action.ResetFontSize, pane)
+-- 			overrides.font_size = nil
+-- 			overrides.enable_tab_bar = true
+-- 		else
+-- 			overrides.font_size = number_value
+-- 			overrides.enable_tab_bar = false
+-- 		end
+-- 	end
+-- 	window:set_config_overrides(overrides)
+-- end)
 
 -- Tab Formatting
 wezterm.on("format-tab-title", function(tab, _, _, _, hover)
@@ -122,30 +182,30 @@ config.window_frame = {
 
 config.font = wezterm.font("CaskaydiaCove Nerd Font")
 
-config.font_size = 12
+config.font_size = 16
 
-config.window_decorations = "RESIZE"
-
-config.window_background_opacity = 0.9
+-- config.window_decorations = "RESIZE"
+--
+-- config.window_background_opacity = 0.9
 
 -- For example, changing the color scheme:
 -- config.color_scheme = "Gruvbox dark, soft (base16)"
 -- config.color_scheme = "Sonokai (Gogh)"
 
 -- Set the background image for wezterm
-config.window_background_image = "./images/gundam_by_slimshadywallpaper_dhg108t-fullview.jpg"
+-- config.window_background_image = "./images/gundam_by_slimshadywallpaper_dhg108t-fullview.jpg"
 
-config.window_background_image_hsb = {
-	-- Darken the background image by reducing it to 1/3rd
-	brightness = 1.3,
-
-	-- You can adjust the hue by scaling its value.
-	-- a multiplier of 1.0 leaves the value unchanged.
-	hue = 1.0,
-
-	-- You can adjust the saturation also.
-	saturation = 1.0,
-}
+-- config.window_background_image_hsb = {
+-- 	-- Darken the background image by reducing it to 1/3rd
+-- 	brightness = 1.3,
+--
+-- 	-- You can adjust the hue by scaling its value.
+-- 	-- a multiplier of 1.0 leaves the value unchanged.
+-- 	hue = 1.0,
+--
+-- 	-- You can adjust the saturation also.
+-- 	saturation = 1.0,
+-- }
 
 -- and finally, return the configuration to wezterm
 return config
