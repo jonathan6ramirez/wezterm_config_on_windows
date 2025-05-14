@@ -4,7 +4,7 @@ local wezterm = require("wezterm")
 -- This will hold the configuration.
 local config = wezterm.config_builder()
 local opacity = 0.8
-local transparent_bg = "rgba(22, 24, 26, " .. opacity .. ")"
+local transparent_bg = "rgba(22, 24, 26, .55)"
 
 -- Set the shell to powershell
 config.default_prog = { "pwsh", "-NoLogo" }
@@ -13,7 +13,7 @@ config.default_prog = { "pwsh", "-NoLogo" }
 config.colors = require("cyberdream")
 -- INFO: colorscheme for solorized osaka
 -- config.color_scheme = "Solarized (dark) (terminal.sexy)"
-config.color_scheme = "Kanagawa Dragon (Gogh)"
+config.color_scheme = "Kanagawa (Gogh)"
 config.force_reverse_video_cursor = true
 
 -- Window Configuration
@@ -32,7 +32,7 @@ config.cursor_blink_rate = 250
 
 -- Tab Bar Configuration
 config.enable_tab_bar = true
-config.hide_tab_bar_if_only_one_tab = true
+-- config.hide_tab_bar_if_only_one_tab = true
 config.show_tab_index_in_tab_bar = true
 config.use_fancy_tab_bar = false
 config.colors.tab_bar = {
@@ -175,14 +175,17 @@ config.keys = {
 }
 
 config.window_frame = {
-	font = wezterm.font({ family = "CaskaydiaCove Nerd Font", weight = "Bold" }),
+	font = wezterm.font({ family = "SauceCodePro Nerd Font Mono", weight = "Bold" }),
 
-	font_size = 13.0,
+	font_size = 16.0,
 }
 
-config.font = wezterm.font("CaskaydiaCove Nerd Font")
+-- config.font = wezterm.font("CaskaydiaCove Nerd Font")
+-- config.font = wezterm.font("CaskaydiaCove Nerd Font Mono")
+-- config.font = wezterm.font("IosevkaTerm Nerd Font Mono")
+config.font = wezterm.font("SauceCodePro Nerd Font Mono")
 
-config.font_size = 16
+config.font_size = 18
 
 -- config.window_decorations = "RESIZE"
 --
