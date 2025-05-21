@@ -3,8 +3,8 @@ local wezterm = require("wezterm")
 
 -- This will hold the configuration.
 local config = wezterm.config_builder()
-local opacity = 0.8
-local transparent_bg = "rgba(22, 24, 26, .55)"
+local opacity = 0.9999
+local transparent_bg = "rgba(22, 24, 26, .72)"
 
 -- Set the shell to powershell
 config.default_prog = { "pwsh", "-NoLogo" }
@@ -182,10 +182,10 @@ config.window_frame = {
 
 -- config.font = wezterm.font("CaskaydiaCove Nerd Font")
 -- config.font = wezterm.font("CaskaydiaCove Nerd Font Mono")
--- config.font = wezterm.font("IosevkaTerm Nerd Font Mono")
-config.font = wezterm.font("SauceCodePro Nerd Font Mono")
+config.font = wezterm.font("IosevkaTerm Nerd Font Mono")
+-- config.font = wezterm.font("SauceCodePro Nerd Font Mono")
 
-config.font_size = 18
+config.font_size = 19
 
 -- config.window_decorations = "RESIZE"
 --
