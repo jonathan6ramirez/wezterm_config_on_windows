@@ -3,8 +3,9 @@ local wezterm = require("wezterm")
 
 -- This will hold the configuration.
 local config = wezterm.config_builder()
-local opacity = 0.9999
-local transparent_bg = "rgba(22, 24, 26, .72)"
+local opacity = 1
+-- local transparent_bg = "rgba(22, 24, 26, .72)" this is for transparent background (any theme)
+local transparent_bg = "rgba(34, 36, 54, 1)" -- This is for tokyo night theme
 
 -- Set the shell to powershell
 config.default_prog = { "pwsh", "-NoLogo" }
@@ -13,7 +14,8 @@ config.default_prog = { "pwsh", "-NoLogo" }
 config.colors = require("cyberdream")
 -- INFO: colorscheme for solorized osaka
 -- config.color_scheme = "Solarized (dark) (terminal.sexy)"
-config.color_scheme = "Kanagawa (Gogh)"
+-- config.color_scheme = "Kanagawa (Gogh)"
+config.color_scheme = "Tokyo Night Storm"
 config.force_reverse_video_cursor = true
 
 -- Window Configuration
@@ -185,7 +187,7 @@ config.window_frame = {
 config.font = wezterm.font("IosevkaTerm Nerd Font Mono")
 -- config.font = wezterm.font("SauceCodePro Nerd Font Mono")
 
-config.font_size = 19
+config.font_size = 18
 
 -- config.window_decorations = "RESIZE"
 --
