@@ -3,9 +3,9 @@ local wezterm = require("wezterm")
 
 -- This will hold the configuration.
 local config = wezterm.config_builder()
-local opacity = 1
+local opacity = 0.75
 -- local transparent_bg = "rgba(22, 24, 26, .72)" this is for transparent background (any theme)
-local transparent_bg = "rgba(34, 36, 54, 1)" -- This is for tokyo night theme
+local transparent_bg = "rgba(34, 36, 54, 0.75)" -- This is for tokyo night theme
 
 -- Set the shell to powershell
 config.default_prog = { "pwsh", "-NoLogo" }
@@ -184,7 +184,8 @@ config.window_frame = {
 
 -- config.font = wezterm.font("CaskaydiaCove Nerd Font")
 -- config.font = wezterm.font("CaskaydiaCove Nerd Font Mono")
-config.font = wezterm.font("IosevkaTerm Nerd Font Mono")
+-- config.font = wezterm.font("IosevkaTerm Nerd Font Mono")
+config.font = wezterm.font("UbuntuSansMono Nerd Font Mono")
 -- config.font = wezterm.font("SauceCodePro Nerd Font Mono")
 
 config.font_size = 18
