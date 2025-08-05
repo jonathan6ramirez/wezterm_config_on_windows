@@ -3,9 +3,15 @@ local wezterm = require("wezterm")
 
 -- This will hold the configuration.
 local config = wezterm.config_builder()
-local opacity = 0.75
--- local transparent_bg = "rgba(22, 24, 26, .72)" this is for transparent background (any theme)
-local transparent_bg = "rgba(34, 36, 54, 0.75)" -- This is for tokyo night theme
+local opacity = 0.65
+-- local transparent_bg = "rgba(22, 24, 26, .65)" --this is for transparent background (any theme)
+local transparent_bg = "rgba(34, 36, 54, 0.65)" -- This is for tokyo night theme
+local windowPadding = {
+	top = 10,
+	bottom = 5,
+	left = 10,
+	right = 10,
+}
 
 -- Set the shell to powershell
 config.default_prog = { "pwsh", "-NoLogo" }
@@ -21,6 +27,7 @@ config.force_reverse_video_cursor = true
 -- Window Configuration
 config.initial_rows = 45
 config.initial_cols = 180
+config.window_padding = windowPadding
 config.window_decorations = "RESIZE"
 config.window_background_opacity = opacity
 -- config.window_background_image = (os.getenv("WEZTERM_CONFIG_FILE") or ""):gsub("wezterm.lua", "bg-blurred.png")
@@ -102,6 +109,7 @@ end)
 -- end)
 
 -- Tab Formatting
+--
 wezterm.on("format-tab-title", function(tab, _, _, _, hover)
 	local background = config.colors.brights[1]
 	local foreground = config.colors.foreground
@@ -146,7 +154,6 @@ wezterm.on("switch-to-right", function(window, pane)
 		window:perform_action(wezterm.action.ActivateTabRelative(1), pane)
 	end
 end)
-
 -- Custom keymaps
 config.keys = {
 	{
@@ -176,16 +183,43 @@ config.keys = {
 	},
 }
 
+--This function checks to see if there is a different screen active and changed the
+--padding accordingly
+wezterm.on("update-status", function(window, _)
+	local tab = window:active_tab()
+	local panes = tab:panes()
+	local alt_screen_active = false
+
+	for i = 1, #panes, 1 do
+		local pane = panes[i]
+		if pane:is_alt_screen_active() then
+			alt_screen_active = true
+			break
+		end
+	end
+
+	if alt_screen_active then
+		window:set_config_overrides({
+			window_padding = { left = 0, right = 0, top = 0, bottom = 0 },
+		})
+	else
+		window:set_config_overrides({
+			window_padding = windowPadding,
+		})
+	end
+end)
+
 config.window_frame = {
-	font = wezterm.font({ family = "SauceCodePro Nerd Font Mono", weight = "Bold" }),
+	-- font = wezterm.font({ family = "SauceCodePro Nerd Font Mono", weight = "Bold" }),
+	font = wezterm.font({ family = "IosevkaTerm Nerd Font Mono", weight = "Bold" }),
 
 	font_size = 16.0,
 }
 
 -- config.font = wezterm.font("CaskaydiaCove Nerd Font")
 -- config.font = wezterm.font("CaskaydiaCove Nerd Font Mono")
--- config.font = wezterm.font("IosevkaTerm Nerd Font Mono")
-config.font = wezterm.font("UbuntuSansMono Nerd Font Mono")
+config.font = wezterm.font("IosevkaTerm Nerd Font Mono")
+-- config.font = wezterm.font("UbuntuSansMono Nerd Font Mono")
 -- config.font = wezterm.font("SauceCodePro Nerd Font Mono")
 
 config.font_size = 18
