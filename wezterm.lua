@@ -3,12 +3,12 @@ local wezterm = require("wezterm")
 
 -- This will hold the configuration.
 local config = wezterm.config_builder()
-local opacity = 0.65
+local opacity = 0.75
 -- local transparent_bg = "rgba(22, 24, 26, .65)" --this is for transparent background (any theme)
-local transparent_bg = "rgba(34, 36, 54, 0.65)" -- This is for tokyo night theme
+local transparent_bg = "rgba(34, 36, 54, 0.85)" -- This is for tokyo night theme
 local windowPadding = {
 	top = 10,
-	bottom = 5,
+	bottom = 0,
 	left = 10,
 	right = 10,
 }
@@ -201,6 +201,7 @@ wezterm.on("update-status", function(window, _)
 	if alt_screen_active then
 		window:set_config_overrides({
 			window_padding = { left = 0, right = 0, top = 0, bottom = 0 },
+			use_resize_increments = false,
 		})
 	else
 		window:set_config_overrides({
@@ -248,4 +249,6 @@ config.font_size = 18
 -- }
 
 -- and finally, return the configuration to wezterm
+--
+config.front_end = "OpenGL"
 return config
