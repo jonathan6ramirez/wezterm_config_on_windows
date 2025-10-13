@@ -3,9 +3,9 @@ local wezterm = require("wezterm")
 
 -- This will hold the configuration.
 local config = wezterm.config_builder()
-local opacity = 0.75
+local opacity = 0.85
 -- local transparent_bg = "rgba(22, 24, 26, .65)" --this is for transparent background (any theme)
-local transparent_bg = "rgba(34, 36, 54, 0.85)" -- This is for tokyo night theme
+local transparent_bg = "rgba(34, 36, 54, 0)" -- This is for tokyo night theme
 local windowPadding = {
 	top = 10,
 	bottom = 0,
@@ -13,8 +13,12 @@ local windowPadding = {
 	right = 10,
 }
 
+-- Get absolute path to config directory
+local config_dir = wezterm.config_dir
+
 -- Set the shell to powershell
 config.default_prog = { "pwsh", "-NoLogo" }
+config.default_cursor_style = "BlinkingUnderline"
 
 -- Color Configuration
 config.colors = require("cyberdream")
@@ -31,13 +35,15 @@ config.window_padding = windowPadding
 config.window_decorations = "RESIZE"
 config.window_background_opacity = opacity
 -- config.window_background_image = (os.getenv("WEZTERM_CONFIG_FILE") or ""):gsub("wezterm.lua", "bg-blurred.png")
+config.window_background_image = config_dir .. "/bg-blurred.png"
+-- config.window_background_image = config_dir .. "/gundam_4k.png"
 config.window_close_confirmation = "NeverPrompt"
-config.win32_system_backdrop = "Acrylic"
+-- config.win32_system_backdrop = "Acrylic"
 
 -- Performance Settings
 config.max_fps = 144
 config.animation_fps = 60
-config.cursor_blink_rate = 250
+config.cursor_blink_rate = 500
 
 -- Tab Bar Configuration
 config.enable_tab_bar = true
@@ -212,18 +218,19 @@ end)
 
 config.window_frame = {
 	-- font = wezterm.font({ family = "SauceCodePro Nerd Font Mono", weight = "Bold" }),
-	font = wezterm.font({ family = "IosevkaTerm Nerd Font Mono", weight = "Bold" }),
+	font = wezterm.font({ family = "Iosevka Nerd Font", weight = "Bold" }),
 
 	font_size = 16.0,
 }
 
--- config.font = wezterm.font("CaskaydiaCove Nerd Font")
--- config.font = wezterm.font("CaskaydiaCove Nerd Font Mono")
-config.font = wezterm.font("IosevkaTerm Nerd Font Mono")
--- config.font = wezterm.font("UbuntuSansMono Nerd Font Mono")
--- config.font = wezterm.font("SauceCodePro Nerd Font Mono")
+-- config.font = wezterm.font("CaskaydiaCove Nerd Font")--NOT INSTALLED ON THIS MACHINE
+-- config.font = wezterm.font("CaskaydiaCove Nerd Font Mono") --NOT INSTALLED ON THIS MACHINE
+-- config.font = wezterm.font("Cascadia Code")
+-- config.font = wezterm.font("Iosevka Nerd Font")
+config.font = wezterm.font("UbuntuMono Nerd Font")
+-- config.font = wezterm.font("SauceCodePro Nerd Font")
 
-config.font_size = 18
+config.font_size = 19
 
 -- config.window_decorations = "RESIZE"
 --
