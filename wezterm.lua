@@ -3,7 +3,7 @@ local wezterm = require("wezterm")
 
 -- This will hold the configuration.
 local config = wezterm.config_builder()
-local opacity = 0.85
+local opacity = 0.7
 -- local transparent_bg = "rgba(22, 24, 26, .65)" --this is for transparent background (any theme)
 local transparent_bg = "rgba(34, 36, 54, 0)" -- This is for tokyo night theme
 local windowPadding = {
@@ -38,7 +38,7 @@ config.window_background_opacity = opacity
 config.window_background_image = config_dir .. "/bg-blurred.png"
 -- config.window_background_image = config_dir .. "/gundam_4k.png"
 config.window_close_confirmation = "NeverPrompt"
--- config.win32_system_backdrop = "Acrylic"
+config.win32_system_backdrop = "Acrylic"
 
 -- Performance Settings
 config.max_fps = 144
@@ -227,10 +227,12 @@ config.window_frame = {
 -- config.font = wezterm.font("CaskaydiaCove Nerd Font Mono") --NOT INSTALLED ON THIS MACHINE
 -- config.font = wezterm.font("Cascadia Code")
 -- config.font = wezterm.font("Iosevka Nerd Font")
-config.font = wezterm.font("UbuntuMono Nerd Font")
+-- config.font = wezterm.font("UbuntuMono Nerd Font")
+-- config.font = wezterm.font("JetBrainsMono Nerd Font")
 -- config.font = wezterm.font("SauceCodePro Nerd Font")
 
-config.font_size = 19
+config.font_size = 17
+config.line_height = 1
 
 -- config.window_decorations = "RESIZE"
 --
